@@ -5,7 +5,7 @@ import sys
 def messagetrans():
     # Create a UDP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    server_address = ('123.45.67.89', 1234)
+    server_address = ('172.31.56.189', 1234)
 
     sensorType = "B" #can be T, H, or B for different sensors
     sensorID = "1" #to be incremented for each sensor used
