@@ -38,7 +38,7 @@ ack = "1"
 n_ack = "0"
 
 # Bind the socket to the port
-host = '172.31.56.189'
+host = '123.45.67.89'
 port = 1234
 
 #setup csv file for logging data
