@@ -6,20 +6,25 @@ import csv
 
 #ensures that a recognized data format is received
 def datavalidation(data, ip, filename):
-    error = False # assume there are no errors
-    if data[0] == "B" or data[0] == "T" or data[0] == "H": #checks for correct type
-        if data[2] > 0: #id should be greater than 0
-            if data[4] == data[4]:#special for python to check if a value is not NaN
-                logvalues(data, ip, filename)
-        #if any conditions are untrue then there was an error
+    try:
+        error = False # assume there are no errors
+        if data[0] == "B" or data[0] == "T" or data[0] == "H": #checks for correct type
+            if data[2] > 0: #id should be greater than 0
+                if data[4] == data[4]:#special for python to check if a value is not NaN
+                    logvalues(data, ip, filename)
+            #if any conditions are untrue then there was an error
+                else:
+                    error = True
             else:
                 error = True
         else:
             error = True
-    else:
-        error = True
-        #makes the error format easier to read
-    return not error
+            #makes the error format easier to read
+        return not error
+    except Exception as e:
+        print "There was an error in received data, error is: \t", e
+        return False
+
 
 #uses the current logfile to store the data received along with the ip address and time
 def logvalues(data, ip, filename):
@@ -67,7 +72,7 @@ while True:
             send = s.sendto(ack, address)
         else:
             #requests a retransmission from the client sensor
-            print "failure"
+            print "\n failured to validate data, requesting retransmission"
             send = s.sendto(n_ack, address)
     except KeyboardInterrupt:
         s.shutdown()
